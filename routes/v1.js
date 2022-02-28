@@ -14,51 +14,52 @@ function generateV1(db) {
   router.get("/ping", (_, res) => res.send({ ping: "pong" }));
 
   router.post("/logs", async (req, res) => {
-    const { organization, location, zone, collection, playlist, track } =
+    const { organization, location, zone, collection, playlist, track, playing, networkSpeed } =
       req.body;
 
+    // Filtering data to only the essentials to save space.
     const newOrganisation = {
-      UUID: organization.UUID,
-      city: organization.city,
+      UUID: organization?.UUID,
+      city: organization?.city,
       country: organization.country,
-      state: organization.state,
-      title: organization.title,
+      state: organization?.state,
+      title: organization?.title,
     };
 
     const newLocation = {
-      UUID: location.UUID,
-      industry: location.industry,
-      state: location.state,
-      zones: location.zones,
+      UUID: location?.UUID,
+      industry: location?.industry,
+      state: location?.state,
+      zones: location?.zones,
     };
 
     const newZone = {
-      UUID: zone.UUID,
-      environment: zone.environment,
-      title: zone.title,
-      zoneType: zone.zoneType,
+      UUID: zone?.UUID,
+      environment: zone?.environment,
+      title: zone?.title,
+      zoneType: zone?.zoneType,
     };
 
     const newCollection = {
-      UUID: collection.UUID,
-      title: collection.title,
-      industry: collection.industry,
-      playlists: collection.playlists,
+      UUID: collection?.UUID,
+      title: collection?.title,
+      industry: collection?.industry,
+      playlists: collection?.playlists,
     };
 
     const newPlaylist = {
-      UUID: playlist.UUID,
-      title: playlist.title,
-      energy: playlist.energy,
-      playTime: playlist.playTime,
-      tracks: playlist.tracks,
+      UUID: playlist?.UUID,
+      title: playlist?.title,
+      energy: playlist?.energy,
+      playTime: playlist?.playTime,
+      tracks: playlist?.tracks,
     };
 
     const newTrack = {
-      UUID: track.trackUUID,
-      title: track.title,
-      artist: track.artist,
-      duration: track.duration,
+      UUID: track?.trackUUID,
+      title: track?.title,
+      artist: track?.artist,
+      duration: track?.duration,
     };
 
     db.collection(organization.UUID).insertOne({
@@ -69,6 +70,8 @@ function generateV1(db) {
       playlist: newPlaylist,
       track: newTrack,
       timestamp: new Date(),
+      playing,
+      networkSpeed,
     });
 
     res.send({
@@ -117,7 +120,7 @@ function generateV1(db) {
       .toArray();
 
     res.send({
-      data: locationLogs,
+      data: locationLogs[0] || {},
       message: "Successfully retrieved organisation logs.",
       status: "L200",
     });
@@ -135,7 +138,7 @@ function generateV1(db) {
       .toArray();
 
     res.send({
-      data: locationLogs,
+      data: locationLogs[0] || {},
       message: "Successfully retrieved organisation logs.",
       status: "L200",
     });
