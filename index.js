@@ -21,7 +21,7 @@ const server = http.createServer(app);
 
 server.listen(port, () => console.log("Listening at port", server.address()));
 
-// You can't upgrade to a more sophisticated method
+// You can upgrade to a more sophisticated method
 // if you are feeling fancy, but this works right now.
 server.on("error", console.error);
 
