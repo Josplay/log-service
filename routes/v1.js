@@ -11,7 +11,7 @@ const router = require("express").Router();
  * @returns
  */
 function generateV1(db) {
-  router.get("/ping", (_, res) => res.send({ ping: "pong" }));
+  router.get("/ping", (_, res) => res.json({ ping: "pong" }));
 
   router.post("/logs", async (req, res) => {
     const { organization, location, zone, collection, playlist, track, playing, networkSpeed } =
@@ -74,7 +74,7 @@ function generateV1(db) {
       networkSpeed,
     });
 
-    res.send({
+    res.json({
       data: req.body,
       message: "Successfully updated organisation logs.",
       status: "L200",
@@ -91,10 +91,10 @@ function generateV1(db) {
       }))
     );
 
-    res.send({
+    res.json({
       data: response,
       message: "Successfully retrieved all organisations logs.",
-      stauts: "L200",
+      status: "L200",
     });
   });
 
@@ -104,7 +104,7 @@ function generateV1(db) {
       .find({})
       .toArray();
 
-    res.send({
+    res.json({
       data: organisationLogs,
       message: "Successfully retrieved organisation logs.",
       status: "L200",
@@ -119,7 +119,7 @@ function generateV1(db) {
       .limit(1)
       .toArray();
 
-    res.send({
+    res.json({
       data: locationLogs[0] || {},
       message: "Successfully retrieved organisation logs.",
       status: "L200",
@@ -137,7 +137,7 @@ function generateV1(db) {
       .limit(1)
       .toArray();
 
-    res.send({
+    res.json({
       data: locationLogs[0] || {},
       message: "Successfully retrieved organisation logs.",
       status: "L200",
