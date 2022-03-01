@@ -4,8 +4,8 @@ const router = require("express").Router();
 /**
  * Generates the routing handlers for v1 logs.
  *
- * - it uses not controllers because the 'db' parameter
- * already acts like one, and that would  be a useless extra layer.
+ * - it uses no controllers because the 'db' parameter
+ * already acts like one, and that would be a useless extra layer/abstraction.
  *
  * @param {Db} db mongodb Database collection
  * @returns
