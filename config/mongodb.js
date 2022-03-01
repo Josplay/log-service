@@ -11,22 +11,29 @@ const atlasURL = process.env.MONGODB_URI;
 
 const URI = atlasURL || `mongodb://${host}:${port}/${name}`;
 
+const OPTIONS = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    keepAlive: true
+}
+
 /**
  * Connects to a mongo db and returns the dbclient
  * @param {String} db_uri uri of db to connect
  * @param {String} db_name Name of the db to connect 
  */
 const connectDb = async (db_uri = URI, db_name = name) => {
-    const client = new MongoClient(db_uri);
+    const client = new MongoClient(db_uri, OPTIONS);
     try {
         await client.connect();
         const db = client.db(db_name);
+        console.log(await db.collections())
         logger.info(`Db successfully connected - ${db.databaseName}`)
         return db;
     } catch (error) {
         logger.error(`Error connecting to mongoclient -- ${error}`)
     } finally {
-        await client.close()
+        // await client.close()
     }
 }
 module.exports = connectDb;

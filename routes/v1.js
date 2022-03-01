@@ -1,4 +1,4 @@
-const { Db } = require("mongodb");
+const { connectDb } = require("../config");
 const router = require("express").Router();
 
 /**
@@ -10,6 +10,7 @@ const router = require("express").Router();
  * @param {Db} db mongodb Database collection
  * @returns
  */
+
 function generateV1(db) {
   router.get("/ping", (_, res) => res.json({ ping: "pong" }));
 
