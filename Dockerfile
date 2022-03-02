@@ -1,4 +1,4 @@
-FROM node:lts-stretch-slim 
+FROM node:16-stretch-slim 
 
 # Create and set working directory for image
 RUN mkdir /app
@@ -16,6 +16,8 @@ RUN npm install
 
 # Copy source files to working directory
 COPY . .
+
+EXPOSE 5000
 
 # Define command for starting app process
 CMD ["/usr/local/bin/npm", "start"]

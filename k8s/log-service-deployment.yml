@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-service-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: log-service
+  template:
+    metadata:
+      labels:
+        component: log-service
+    spec:
+      containers:
+        - name: logservice
+          image: josplay/log-service:v1.0.1
+          ports:
+            - containerPort: 3200
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-key
+                  key: API_KEY
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: ls-mongodb-uri
+                  key: MONGODB_URI
+      imagePullSecrets:
+        - name: regcred

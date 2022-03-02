@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: logservice-clusterip-service
+  labels:
+    component: log-service
+spec:
+  type: ClusterIP
+  selector:
+    component: log-service
+  ports:
+    - port: 5000
+      targetPort: 5000
