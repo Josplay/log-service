@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: logservice
-          image: josplay/log-service:v1.0.1
+          image: josplay/log-service:v1.0.2
           ports:
             - containerPort: 3200
           resources:
@@ -22,8 +22,8 @@ spec:
               memory: "64Mi"
               cpu: "100m"
             limits:
-              memory: "256Mi"
-              cpu: "500m"
+              memory: "128Mi"
+              cpu: "250m"
           env:
             - name: API_KEY
               valueFrom:
