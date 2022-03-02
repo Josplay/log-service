@@ -84,7 +84,6 @@ function generateV1(db) {
 
   router.get("/logs", async (_, res) => {
     const allOrganisationsLogs = await db.collections();
-
     const response = await Promise.all(
       allOrganisationsLogs.map(async (collection) => ({
         name: collection.collectionName,
