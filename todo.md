@@ -1,5 +1,0 @@
-- Add Eslint
-- Add prettier
-- Add commit lint
-- Add husky
-- Add error handling.

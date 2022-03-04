@@ -1,9 +1,7 @@
-const { Collection } = require("mongodb");
-
 /**
- * 
- * @param {Collection} collection 
- * @returns 
+ * Creates a new log.
+ * @param {Collection} collection
+ * @returns
  */
 function createLog(collection) {
   return async (req, res) => {
@@ -16,7 +14,7 @@ function createLog(collection) {
       track,
       playing,
       networkSpeed,
-    } = req.body;
+    } = req.body
 
     const newPlaylist = {
       UUID: playlist?.UUID,
@@ -24,14 +22,14 @@ function createLog(collection) {
       energy: playlist?.energy,
       playTime: playlist?.playTime,
       tracks: playlist?.tracks,
-    };
+    }
 
     const newTrack = {
       UUID: track?.trackUUID,
       title: track?.title,
       artist: track?.artist,
       duration: track?.duration,
-    };
+    }
 
     await collection.insertOne({
       organisationUUID,
@@ -43,14 +41,14 @@ function createLog(collection) {
       timestamp: new Date(),
       playing,
       networkSpeed,
-    });
+    })
 
     res.json({
       data: req.body,
-      message: "Successfully updated organisation logs.",
-      status: "L200",
-    });
-  };
+      message: 'Successfully updated organisation logs.',
+      status: 'L200',
+    })
+  }
 }
 
-module.exports = createLog;
+module.exports = createLog

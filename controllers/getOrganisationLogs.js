@@ -1,7 +1,5 @@
-const { Collection } = require("mongodb");
-
 /**
- *
+ * Retrieves all the logs for an organisation.
  * @param {Collection} collection
  * @returns
  */
@@ -9,14 +7,14 @@ function getOrganisationLogs(collection) {
   return async (req, res) => {
     const logs = await collection
       .find({ organisationUUID: req.params.organisationId })
-      .toArray();
+      .toArray()
 
     res.json({
       data: logs,
-      message: "Successfully retrieved organisation logs.",
-      status: "L200",
-    });
-  };
+      message: 'Successfully retrieved organisation logs.',
+      status: 'L200',
+    })
+  }
 }
 
-module.exports = getOrganisationLogs;
+module.exports = getOrganisationLogs

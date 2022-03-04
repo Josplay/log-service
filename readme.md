@@ -2,10 +2,10 @@
 
 Keeps track of all devices logs.
 
-
 ## End Points
 
-__Reference Schema__
+**Reference Schema**
+
 ```json
 {
   "organisation": {
@@ -57,6 +57,7 @@ RESPONSE { 'ping' : 'pong' }
 ```
 
 ### Report a Log
+
 Creates a new log in the database.
 
 ```sh
@@ -68,6 +69,7 @@ REPONSE { organization, location, zone, collection, playlist, track }
 ```
 
 ### Get All Logs
+
 Get all logs.
 
 ```sh
