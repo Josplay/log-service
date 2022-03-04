@@ -26,6 +26,7 @@ const connectDb = (db_uri = URI, db_name = name) => {
   const client = new MongoClient(db_uri, OPTIONS)
   try {
     client.connect()
+    process.on("beforeExit", client.close);
     const db = client.db(db_name)
     logger.info(`Db successfully connected - ${db.databaseName}`)
     return db

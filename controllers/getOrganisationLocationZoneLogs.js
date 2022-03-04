@@ -1,3 +1,5 @@
+const { logger } = require('../config')
+
 /**
  * Retrieves the most recent organisation zone log.
  * @param {Collection} collection
@@ -5,15 +7,27 @@
  */
 function getOrganisationLocationZoneLogs(collection) {
   return async (req, res) => {
-    const logs = await collection
-      .findOne({
-        organisationUUID: req.params.organisationId,
-        locationUUID: req.params.locationId,
-        zoneUUID: req.params.zoneId,
+    let logs = []
+
+    try {
+      logs = await collection
+        .findOne({
+          organisationUUID: req.params.organisationId,
+          locationUUID: req.params.locationId,
+          zoneUUID: req.params.zoneId,
+        })
+        .sort({ _id: -1 })
+        .limit(1)
+        .toArray()
+    } catch (error) {
+      logger.error(error)
+      res.status(500).json({
+        data: null,
+        message: 'An error occured while trying to retrieve log.',
+        status: 'L500',
       })
-      .sort({ _id: -1 })
-      .limit(1)
-      .toArray()
+      return
+    }
 
     res.json({
       data: logs[0] || {},

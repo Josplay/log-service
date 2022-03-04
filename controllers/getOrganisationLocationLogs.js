@@ -1,3 +1,5 @@
+const { logger } = require("../config")
+
 /**
  * Retrieves all the logs for an organisation location.
  * @param {Collection} collection
@@ -5,12 +7,24 @@
  */
 function getOrganisationLocationLogs(collection) {
   return async (req, res) => {
-    const logs = await collection
-      .find({
-        organisationUUID: req.params.organisationUUID,
-        locationUUID: req.params.locationId,
+    let logs = []
+    try {
+      logs = await collection
+        .find({
+          organisationUUID: req.params.organisationUUID,
+          locationUUID: req.params.locationId,
+        })
+        .toArray()
+      
+    } catch(error) {
+      logger.error(error)
+      res.status(500).json({
+        data: null,
+        message: "An error occured while trying to retrieve log.",
+        status: "L500"
       })
-      .toArray()
+      return
+    }
 
     res.json({
       data: logs,

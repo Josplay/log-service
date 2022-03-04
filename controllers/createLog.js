@@ -1,3 +1,5 @@
+const { logger } = require("../config")
+
 /**
  * Creates a new log.
  * @param {Collection} collection
@@ -16,32 +18,42 @@ function createLog(collection) {
       networkSpeed,
     } = req.body
 
-    const newPlaylist = {
-      UUID: playlist?.UUID,
-      title: playlist?.title,
-      energy: playlist?.energy,
-      playTime: playlist?.playTime,
-      tracks: playlist?.tracks,
-    }
+    try {
+      const newPlaylist = {
+        UUID: playlist?.UUID,
+        title: playlist?.title,
+        energy: playlist?.energy,
+        playTime: playlist?.playTime,
+        tracks: playlist?.tracks,
+      }
+  
+      const newTrack = {
+        UUID: track?.trackUUID,
+        title: track?.title,
+        artist: track?.artist,
+        duration: track?.duration,
+      }
 
-    const newTrack = {
-      UUID: track?.trackUUID,
-      title: track?.title,
-      artist: track?.artist,
-      duration: track?.duration,
+      await collection.insertOne({
+        organisationUUID,
+        locationUUID,
+        zoneUUID,
+        collectionUUID,
+        playlist: newPlaylist,
+        track: newTrack,
+        timestamp: new Date(),
+        playing,
+        networkSpeed,
+      })
+    } catch(error) {
+      logger.error(error)
+      res.status(500).json({
+        data: null,
+        message: "An error occured while trying to persist log.",
+        status: "L500"
+      })
+      return;
     }
-
-    await collection.insertOne({
-      organisationUUID,
-      locationUUID,
-      zoneUUID,
-      collectionUUID,
-      playlist: newPlaylist,
-      track: newTrack,
-      timestamp: new Date(),
-      playing,
-      networkSpeed,
-    })
 
     res.json({
       data: req.body,
