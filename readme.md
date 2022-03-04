@@ -1,5 +1,6 @@
 # Log Server
 
+Keeps track of all devices logs.
 
 
 ## End Points

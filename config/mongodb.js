@@ -35,5 +35,6 @@ const connectDb = (db_uri = URI, db_name = name) => {
         client.close()
     }
 }
+
 module.exports = connectDb;
 
