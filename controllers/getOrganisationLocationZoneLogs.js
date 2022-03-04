@@ -18,7 +18,7 @@ function getOrganisationLocationZoneLogs(collection) {
       .toArray();
 
     res.json({
-      data: locationLogs[0] || {},
+      data: logs[0] || {},
       message: "Successfully retrieved organisation logs.",
       status: "L200",
     });

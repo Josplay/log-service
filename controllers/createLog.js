@@ -33,7 +33,7 @@ function createLog(collection) {
       duration: track?.duration,
     };
 
-    collection.insertOne({
+    await collection.insertOne({
       organisationUUID,
       locationUUID,
       zoneUUID,

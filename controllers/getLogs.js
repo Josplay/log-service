@@ -7,7 +7,7 @@ const { Collection } = require("mongodb");
  */
 function getLogs(collection) {
   return async (_, res) => {
-    const response = await collection.find({});
+    const response = await collection.find({}).toArray();
 
     res.json({
       data: response,
