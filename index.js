@@ -3,7 +3,7 @@ const express = require('express')
 const generateV1 = require('./routes/v1')
 const http = require('http')
 const cors = require('cors')
-const { connectDb, PORT, logger } = require('./config')
+const { connectDb,  PORT, logger } = require('./config')
 
 async function main() {
   const app = express()
@@ -13,7 +13,7 @@ async function main() {
   app.use(express.urlencoded({ extended: true }))
 
   const db = await connectDb()
-  console.log(await db.collections())
+
   app.use('/v1/', generateV1(db))
 
   const server = http.createServer(app)

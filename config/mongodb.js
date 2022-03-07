@@ -17,23 +17,26 @@ const OPTIONS = {
   keepAlive: true,
 }
 
+
+// const client = new MongoClient("mongodb://localhost:27017");
+// await client.connect();
+// const db = await client.db('events');
+
 /**
  * Connects to a mongo db and returns the dbclient
  * @param {String} db_uri uri of db to connect
  * @param {String} db_name Name of the db to connect
  */
-const connectDb = (db_uri = URI, db_name = name) => {
+const connectDb =  (db_uri = URI, db_name = name) => {
   const client = new MongoClient(db_uri, OPTIONS)
   try {
     client.connect()
-    process.on("beforeExit", client.close);
     const db = client.db(db_name)
     logger.info(`Db successfully connected - ${db.databaseName}`)
     return db
   } catch (error) {
     logger.error(`Error connecting to mongoclient -- ${error}`)
-  } finally {
-    client.close()
+    client.close();
   }
 }
 

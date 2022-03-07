@@ -11,7 +11,7 @@ function getOrganisationLocationZoneLogs(collection) {
 
     try {
       logs = await collection
-        .findOne({
+        .find({
           organisationUUID: req.params.organisationId,
           locationUUID: req.params.locationId,
           zoneUUID: req.params.zoneId,
