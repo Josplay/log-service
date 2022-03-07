@@ -18,10 +18,6 @@ const OPTIONS = {
 }
 
 
-// const client = new MongoClient("mongodb://localhost:27017");
-// await client.connect();
-// const db = await client.db('events');
-
 /**
  * Connects to a mongo db and returns the dbclient
  * @param {String} db_uri uri of db to connect
