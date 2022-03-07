@@ -1,17 +1,17 @@
 const { logger } = require("../config")
 
 /**
- * Retrieves all the logs for an organisation.
+ * Retrieves all the logs for an organization.
  * @param {Collection} collection
  * @returns
  */
-function getOrganisationLogs(collection) {
+function getorganizationLogs(collection) {
   return async (req, res) => {
-    const logs = []
+    let logs = []
 
     try {
-      await collection
-      .find({ organisationUUID: req.params.organisationId })
+      logs = await collection
+      .find({ organizationUUID: req.params.organizationId })
       .toArray()
     } catch(error) {
       logger.error(error)
@@ -25,10 +25,10 @@ function getOrganisationLogs(collection) {
 
     res.json({
       data: logs,
-      message: 'Successfully retrieved organisation logs.',
+      message: 'Successfully retrieved organization logs.',
       status: 'L200',
     })
   }
 }
 
-module.exports = getOrganisationLogs
+module.exports = getorganizationLogs

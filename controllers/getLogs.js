@@ -22,7 +22,7 @@ function getLogs(collection) {
 
     res.json({
       data: response,
-      message: 'Successfully retrieved all organisations logs.',
+      message: 'Successfully retrieved all organizations logs.',
       status: 'L200',
     })
   }

@@ -1,18 +1,18 @@
 const { logger } = require('../config')
 
 /**
- * Retrieves the most recent organisation zone log.
+ * Retrieves the most recent organization zone log.
  * @param {Collection} collection
  * @returns
  */
-function getOrganisationLocationZoneLogs(collection) {
+function getorganizationLocationZoneLogs(collection) {
   return async (req, res) => {
     let logs = []
 
     try {
       logs = await collection
         .find({
-          organisationUUID: req.params.organisationId,
+          organizationUUID: req.params.organizationId,
           locationUUID: req.params.locationId,
           zoneUUID: req.params.zoneId,
         })
@@ -31,10 +31,10 @@ function getOrganisationLocationZoneLogs(collection) {
 
     res.json({
       data: logs[0] || {},
-      message: 'Successfully retrieved organisation logs.',
+      message: 'Successfully retrieved organization logs.',
       status: 'L200',
     })
   }
 }
 
-module.exports = getOrganisationLocationZoneLogs
+module.exports = getorganizationLocationZoneLogs

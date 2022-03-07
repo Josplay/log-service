@@ -1,9 +1,9 @@
 const {
   createLog,
   getLogs,
-  getOrganisationLocationLogs,
-  getOrganisationLocationZoneLogs,
-  getOrganisationLogs,
+  getorganizationLocationLogs,
+  getorganizationLocationZoneLogs,
+  getorganizationLogs,
 } = require('../controllers')
 const router = require('express').Router()
 
@@ -22,16 +22,16 @@ function generateV1(db) {
 
   router.get('/logs', getLogs(collection))
 
-  router.get('/logs/:organisationId', getOrganisationLogs(collection))
+  router.get('/logs/:organizationId', getorganizationLogs(collection))
 
   router.get(
-    '/logs/:organisationId/:locationId',
-    getOrganisationLocationLogs(collection)
+    '/logs/:organizationId/:locationId',
+    getorganizationLocationLogs(collection)
   )
 
   router.get(
-    '/logs/:organisationId/:locationId/:zoneId',
-    getOrganisationLocationZoneLogs(collection)
+    '/logs/:organizationId/:locationId/:zoneId',
+    getorganizationLocationZoneLogs(collection)
   )
 
   return router

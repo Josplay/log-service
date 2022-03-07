@@ -8,7 +8,7 @@ const { logger } = require("../config")
 function createLog(collection) {
   return async (req, res) => {
     const {
-      organisationUUID,
+      organizationUUID,
       locationUUID,
       zoneUUID,
       collectionUUID,
@@ -35,7 +35,7 @@ function createLog(collection) {
       }
 
       await collection.insertOne({
-        organisationUUID,
+        organizationUUID,
         locationUUID,
         zoneUUID,
         collectionUUID,
@@ -57,7 +57,7 @@ function createLog(collection) {
 
     res.json({
       data: req.body,
-      message: 'Successfully updated organisation logs.',
+      message: 'Successfully updated organization logs.',
       status: 'L200',
     })
   }

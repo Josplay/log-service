@@ -8,7 +8,7 @@ Keeps track of all devices logs.
 
 ```json
 {
-  "organisation": {
+  "organization": {
     "UUID": "string",
     "city": "string",
     "country": "string",
@@ -84,12 +84,12 @@ REPONSE [
 ]
 ```
 
-### Get Organisation Logs
+### Get organization Logs
 
-Get all logs for an organisation.
+Get all logs for an organization.
 
 ```sh
-GET v1/logs/organisationId
+GET v1/logs/organizationId
 
 
 REPONSE [{ organization, location, zone, collection, playlist, track }]
@@ -100,7 +100,7 @@ REPONSE [{ organization, location, zone, collection, playlist, track }]
 Get most recent log for a location.
 
 ```sh
-GET v1/logs/:organisationId/:locationId
+GET v1/logs/:organizationId/:locationId
 
 
 REPONSE [{ organization, location, zone, collection, playlist, track }]
@@ -111,7 +111,7 @@ REPONSE [{ organization, location, zone, collection, playlist, track }]
 Get most recent log for a zone.
 
 ```sh
-GET v1/logs/:organisationId/:locationId/:zoneId
+GET v1/logs/:organizationId/:locationId/:zoneId
 
 
 REPONSE [{ organization, location, zone, collection, playlist, track }]
