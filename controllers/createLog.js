@@ -1,4 +1,6 @@
-const { logger } = require("../config")
+const { logger } = require('../config')
+const ErrorMessage = require('../utils/error-message')
+const { checkLogs } = require('../utils/validators')
 
 /**
  * Creates a new log.
@@ -19,6 +21,21 @@ function createLog(collection) {
     } = req.body
 
     try {
+      const errors = await checkLogs(
+        organizationUUID,
+        locationUUID,
+        zoneUUID,
+        collectionUUID,
+        playlist,
+        track,
+        playing,
+        networkSpeed
+      )
+
+      if (!errors) {
+        throw new ErrorMessage(400, errors.join('. '))
+      }
+
       const newPlaylist = {
         UUID: playlist?.UUID,
         title: playlist?.title,
@@ -26,7 +43,7 @@ function createLog(collection) {
         playTime: playlist?.playTime,
         tracks: playlist?.tracks,
       }
-  
+
       const newTrack = {
         UUID: track?.trackUUID,
         title: track?.title,
@@ -45,14 +62,14 @@ function createLog(collection) {
         playing,
         networkSpeed,
       })
-    } catch(error) {
+    } catch (error) {
       logger.error(error)
       res.status(500).json({
         data: null,
-        message: "An error occured while trying to persist log.",
-        status: "L500"
+        message: 'An error occured while trying to persist log.',
+        status: 'L500',
       })
-      return;
+      return
     }
 
     res.json({
