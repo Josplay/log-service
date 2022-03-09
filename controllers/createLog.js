@@ -1,13 +1,15 @@
+const { validationResult } = require("express-validator");
+
 const { logger } = require('../config')
-const ErrorMessage = require('../utils/error-message')
-const { checkLogs } = require('../utils/validators')
+const { errorBuilder } = require('../utils')
 
 /**
  * Creates a new log.
- * @param {Collection} collection
+ * @param {Collection} collection A mongodb collection
  * @returns
  */
 function createLog(collection) {
+
   return async (req, res) => {
     const {
       organizationUUID,
@@ -19,23 +21,17 @@ function createLog(collection) {
       playing,
       networkSpeed,
     } = req.body
-
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const serverError = errorBuilder(
+        400,
+        'Log create  error',
+        'Log create error cause by invalid input',
+        errors.errors
+      );
+      return res.status(500).json(serverError);
+    }
     try {
-      const errors = await checkLogs(
-        organizationUUID,
-        locationUUID,
-        zoneUUID,
-        collectionUUID,
-        playlist,
-        track,
-        playing,
-        networkSpeed
-      )
-
-      if (!errors) {
-        throw new ErrorMessage(400, errors.join('. '))
-      }
-
       const newPlaylist = {
         UUID: playlist?.UUID,
         title: playlist?.title,
@@ -62,22 +58,23 @@ function createLog(collection) {
         playing,
         networkSpeed,
       })
-    } catch (error) {
-      logger.error(error)
-      res.status(500).json({
-        data: null,
-        message: 'An error occured while trying to persist log.',
-        status: 'L500',
+      res.json({
+        data: req.body,
+        message: 'Successfully updated organization logs.',
+        status: 'L200',
       })
-      return
+    } catch (err) {
+      logger.error(err)
+      const serverError = errorBuilder(
+        500,
+        'Server Error',
+        err.message || 'Server error creating a log',
+        err
+      );
+      return res.status(500).json(serverError);
     }
-
-    res.json({
-      data: req.body,
-      message: 'Successfully updated organization logs.',
-      status: 'L200',
-    })
   }
+
 }
 
 module.exports = createLog

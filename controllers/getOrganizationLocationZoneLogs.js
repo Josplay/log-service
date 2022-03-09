@@ -1,3 +1,5 @@
+const { validationResult } = require("express-validator");
+const { errorBuilder } = require("../utils")
 const { logger } = require('../config')
 
 /**
@@ -5,12 +7,21 @@ const { logger } = require('../config')
  * @param {Collection} collection
  * @returns
  */
-function getorganizationLocationZoneLogs(collection) {
+function getOrganizationLocationZoneLogs(collection) {
   return async (req, res) => {
-    let logs = []
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const serverError = errorBuilder(
+        400,
+        'Log create  error',
+        'Log create error cause by invalid input',
+        errors.errors
+      );
+      return res.status(500).json(serverError);
+    }
 
     try {
-      logs = await collection
+      const logs = await collection
         .find({
           organizationUUID: req.params.organizationId,
           locationUUID: req.params.locationId,
@@ -19,22 +30,22 @@ function getorganizationLocationZoneLogs(collection) {
         .sort({ _id: -1 })
         .limit(1)
         .toArray()
-    } catch (error) {
-      logger.error(error)
-      res.status(500).json({
-        data: null,
-        message: 'An error occured while trying to retrieve log.',
-        status: 'L500',
+      res.json({
+        data: logs[0] || {},
+        message: 'Successfully retrieved organization logs.',
+        status: 'L200',
       })
-      return
+    } catch (err) {
+      logger.error(err)
+      const serverError = errorBuilder(
+        500,
+        'Server Error',
+        err.message || 'Server error fetching logs.',
+        err
+      );
+      return res.status(500).json(serverError)
     }
-
-    res.json({
-      data: logs[0] || {},
-      message: 'Successfully retrieved organization logs.',
-      status: 'L200',
-    })
   }
 }
 
-module.exports = getorganizationLocationZoneLogs
+module.exports = getOrganizationLocationZoneLogs

@@ -1,13 +1,13 @@
 const getLogs = require('./getLogs')
-const getorganizationLogs = require('./getorganizationLogs')
+const getOrganizationLogs = require('./getOrganizationLogs')
 const createLog = require('./createLog')
-const getorganizationLocationLogs = require('./getorganizationLocationLogs')
-const getorganizationLocationZoneLogs = require('./getorganizationLocationZoneLogs')
+const getOrganizationLocationLogs = require('./getOrganizationLocationLogs')
+const getOrganizationLocationZoneLogs = require('./getOrganizationLocationZoneLogs')
 
 module.exports = {
   getLogs,
-  getorganizationLocationLogs,
+  getOrganizationLocationLogs,
   createLog,
-  getorganizationLocationZoneLogs,
-  getorganizationLogs,
+  getOrganizationLocationZoneLogs,
+  getOrganizationLogs,
 }

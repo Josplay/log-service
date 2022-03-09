@@ -22,17 +22,15 @@ module.exports = class ErrorMessage {
    */
   constructor(statusCode = 400, title = null) {
     if (statusCode && typeof statusCode !== "number") {
-      throw Error(
-        `Expected Status code to be a Number but found ${typeof statusCode}`
-      );
+      this.warn = `Expected Status code to be a Number but found ${typeof statusCode}`
     }
     if (statusCode && !SUPPORTED_STATUS_CODES.includes(statusCode)) {
-      throw Error(
-        `Unsupported HTTP status code: We currently support the following ${SUPPORTED_STATUS_CODES}.`
-      );
+      this.warn = `Unsupported HTTP status code: We currently support the following ${SUPPORTED_STATUS_CODES}.`
     }
     this.headers = HEADERS;
-    this.error = {};
+    this.error = {
+      warn: this.warn
+    };
     this.error.status = Number(statusCode) || 400;
     this.error.title = title || httpStatusCodes[this.error.status];
   }
