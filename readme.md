@@ -1,13 +1,14 @@
 # Log Server
 
-
+Keeps track of all devices logs.
 
 ## End Points
 
-__Reference Schema__
+**Reference Schema**
+
 ```json
 {
-  "organisation": {
+  "organization": {
     "UUID": "string",
     "city": "string",
     "country": "string",
@@ -56,6 +57,7 @@ RESPONSE { 'ping' : 'pong' }
 ```
 
 ### Report a Log
+
 Creates a new log in the database.
 
 ```sh
@@ -67,6 +69,7 @@ REPONSE { organization, location, zone, collection, playlist, track }
 ```
 
 ### Get All Logs
+
 Get all logs.
 
 ```sh
@@ -81,12 +84,12 @@ REPONSE [
 ]
 ```
 
-### Get Organisation Logs
+### Get organization Logs
 
-Get all logs for an organisation.
+Get all logs for an organization.
 
 ```sh
-GET v1/logs/organisationId
+GET v1/logs/organizationId
 
 
 REPONSE [{ organization, location, zone, collection, playlist, track }]
@@ -97,7 +100,7 @@ REPONSE [{ organization, location, zone, collection, playlist, track }]
 Get most recent log for a location.
 
 ```sh
-GET v1/logs/:organisationId/:locationId
+GET v1/logs/:organizationId/:locationId
 
 
 REPONSE [{ organization, location, zone, collection, playlist, track }]
@@ -108,7 +111,7 @@ REPONSE [{ organization, location, zone, collection, playlist, track }]
 Get most recent log for a zone.
 
 ```sh
-GET v1/logs/:organisationId/:locationId/:zoneId
+GET v1/logs/:organizationId/:locationId/:zoneId
 
 
 REPONSE [{ organization, location, zone, collection, playlist, track }]
