@@ -21,7 +21,9 @@ function createLog(collection) {
       playing,
       networkSpeed,
     } = req.body
+
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
       const serverError = errorBuilder(
         400,
@@ -41,7 +43,7 @@ function createLog(collection) {
       }
 
       const newTrack = {
-        UUID: track?.trackUUID,
+        UUID: track?.UUID,
         title: track?.title,
         artist: track?.artist,
         duration: track?.duration,

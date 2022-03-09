@@ -22,7 +22,7 @@ function generateV2(db) {
 
   router.post('/logs',
     [
-      check(["track.trackUUID", "track.title", "track.artist"]).isString().withMessage("Playlist UUID, title, and artist required"),
+      check(["track.UUID", "track.title", "track.artist"]).isString().withMessage("Playlist UUID, title, and artist required"),
       check(["track.duration",]).optional({ nullable: true }).isFloat(),
       check(["playing",]).isBoolean(),
       check("networkSpeed").isString(),
