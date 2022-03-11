@@ -20,6 +20,7 @@ function createLog(collection) {
       track,
       playing,
       networkSpeed,
+      deviceId,
     } = req.body
 
     const errors = validationResult(req);
@@ -59,6 +60,7 @@ function createLog(collection) {
         timestamp: new Date(),
         playing,
         networkSpeed,
+        deviceId,
       })
       res.json({
         data: req.body,
