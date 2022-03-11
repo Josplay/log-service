@@ -27,6 +27,7 @@ function generateV2(db) {
       check(["playing",]).isBoolean(),
       check("networkSpeed").isString(),
       check(["organizationUUID", "locationUUID", "zoneUUID", "collectionUUID"]).isUUID().withMessage("UUIDs required"),
+      check(["deviceId"]).optional({ nullable: true }).isString(),
       check([
         "playlist.UUID",
         "playlist.title",

@@ -1,4 +1,4 @@
-const { connectDb, logger } = require('../config')
+const { logger } = require('../config')
 const router = require('express').Router()
 
 /**
